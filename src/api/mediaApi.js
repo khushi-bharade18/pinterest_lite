@@ -8,12 +8,24 @@ export async function getPhotos(query, per_page = 20) {
     params: { query, per_page },
     headers: { Authorization: `Client-ID ${UNSPLASH_KEY}` },
   });
-  console.log(response.data.results);
+  return response.data.results.map((item) => ({
+    id: item.id,
+    type: "photo",
+    thumbnail: item.urls.thumb,
+    url: item.links.html,
+    title: item.alt_description,
+  }));
 }
 
 export async function getStickers(q, api_key = GIPHY_KEY, limit = 20) {
   const response = await axios.get("https://api.giphy.com/v1/stickers/search", {
     params: { q, api_key, limit },
   });
-  console.log(response.data.data);
+  return response.data.data.map((item) => ({
+    id: item.id,
+    type: "sticker",
+    thumbnail: item.images.downsized_medium.url,
+    url: item.url,
+    title: item.title,
+  }));
 }
