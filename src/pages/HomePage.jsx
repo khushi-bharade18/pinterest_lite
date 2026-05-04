@@ -1,11 +1,15 @@
+import { useState } from "react";
 import { getPhotos, getStickers } from "../api/mediaApi";
 import Navbar from "../components/Navbar";
+import ResultGrid from "../components/ResultGrid";
 
 export default function HomePage() {
+  const [activePage, setActivePage] = useState("home");
   return (
     <div>
-      <Navbar />
-      <button
+      <Navbar activePage={activePage} setActivePage={setActivePage} />
+      {/* <ResultGrid /> */}
+      {/* <button
         onClick={async () => {
           const result = await getPhotos("cat");
           console.log(result);
@@ -21,7 +25,7 @@ export default function HomePage() {
         }}
       >
         Get Stickers
-      </button>
+      </button> */}
     </div>
   );
 }
