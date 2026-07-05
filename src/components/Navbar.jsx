@@ -1,9 +1,12 @@
 import { useState } from "react";
 import SearchBar from "./SearchBar";
 import { Home, Bookmark, User, Menu, X } from "lucide-react";
+import { useSelector } from "react-redux";
 
 export default function Navbar({ activePage, setActivePage }) {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const {currUser} = useSelector((state) => state.users);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
@@ -64,10 +67,10 @@ export default function Navbar({ activePage, setActivePage }) {
             {/* User Info */}
             <div className="text-right leading-tight hidden lg:flex flex-col">
               <span className="text-sm font-semibold text-gray-800">
-                Khushi Bharade
+                {currUser ? currUser.name : "Guest User"}
               </span>
               <span className="text-xs text-gray-500 truncate max-w-[180px]">
-                khushi@email.com
+                {currUser ? currUser.email : "guest@email.com"}
               </span>
             </div>
 

@@ -8,7 +8,7 @@ export default function Tabs() {
   const { activeTab } = useSelector((state) => state.search);
   return (
     <div className="w-full flex justify-center pt-32 md:pt-20 lg:pt-20 px-4 sm:px-4 lg:px-8 ">
-      <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-md bg-gray-100 rounded-full p-1 flex shadow-sm ">
+      <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-md rounded-full p-1 flex shadow-sm bg-white">
         <TabButton
           active={activeTab === "photos"}
           onClick={() => dispatch(setActiveTab("photos"))}

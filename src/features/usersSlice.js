@@ -1,48 +1,139 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Get all users from localStorage
 const getExistUser = () => {
-  const existUser = localStorage.getItem("users");
   try {
-    return existUser ? JSON.parse(existUser) : [];
+    const users = localStorage.getItem("users");
+    return users ? JSON.parse(users) : [];
   } catch (error) {
-    return error.message;
+    console.error("Error loading users:", error);
+    return [];
   }
+};
+
+// Get current logged-in user
+const getCurrUser = () => {
+  try {
+    const user = localStorage.getItem("currUser");
+    return user ? JSON.parse(user) : null;
+  } catch (error) {
+    console.error("Error loading current user:", error);
+    return null;
+  }
+};
+
+const initialState = {
+  usersArr: getExistUser(),
+  currUser: getCurrUser(),
+  error: null,
 };
 
 const usersSlice = createSlice({
   name: "users",
-  initialState: {
-    usersArr: getExistUser(),
-    currUser: null,
-  },
+  initialState,
 
   reducers: {
     signupUser: (state, action) => {
       const user = action.payload;
-
-      const exist = state.usersArr.find((item) => item.id === user.id);
+      const exist = state.usersArr.find((item) => item.email === user.email);
       if (exist) {
-        throw new Error("User is already exist");
+        state.error = "User already exists.";
+        return;
       }
 
-      state.usersArr.push({ ...user, collection: [] });
+      const newUser = {
+        ...user,
+        collection: [],
+      };
+
+      state.usersArr.push(newUser);
+      state.error = null;
       localStorage.setItem("users", JSON.stringify(state.usersArr));
     },
-    loginUser: (state, action) => {
-      const user = action.payload;
-      const exist = state.usersArr.find(
-        (item) => item.email === user.email && item.password === user.password,
-      );
 
+    loginUser: (state, action) => {
+      const { email, password } = action.payload;
+
+      const exist = state.usersArr.find(
+        (item) => item.email === email && item.password === password,
+      );
       if (!exist) {
-        throw new Error("User Not Found");
+        state.error = "Invalid email or password.";
+        return;
       }
 
       state.currUser = exist;
+      state.error = null;
+      localStorage.setItem("currUser", JSON.stringify(exist));
+    },
+
+    addToCollection: (state, action) => {
+      const item = action.payload;
+      if (!state.currUser) return;
+
+      // Duplicate item check
+      const alreadyExist = state.currUser.collection.find(
+        (data) => data.id === item.id,
+      );
+      if (alreadyExist) {
+        state.error = "Item already saved.";
+        return;
+      }
+
+      // Add item to current user
+      state.currUser.collection.unshift(item);
+
+      // Update users array
+      const index = state.usersArr.findIndex(
+        (user) => user.email === state.currUser.email,
+      );
+      if (index !== -1) {
+        state.usersArr[index] = state.currUser;
+      }
+
+      // Update localStorage
+      localStorage.setItem("users", JSON.stringify(state.usersArr));
+      localStorage.setItem("currUser", JSON.stringify(state.currUser));
+    },
+
+    removeFromCollection: (state, action) => {
+      const id = action.payload;
+
+      if (!state.currUser) return;
+
+      state.currUser.collection = state.currUser.collection.filter(
+        (item) => item.id !== id,
+      );
+
+      const index = state.usersArr.findIndex(
+        (user) => user.email === state.currUser.email,
+      );
+      if (index !== -1) {
+        state.usersArr[index] = state.currUser;
+      }
+
+      localStorage.setItem("users", JSON.stringify(state.usersArr));
+      localStorage.setItem("currUser", JSON.stringify(state.currUser));
+    },
+
+    logoutUser: (state) => {
+      state.currUser = null;
+      localStorage.removeItem("currUser");
+    },
+
+    clearError: (state) => {
+      state.error = null;
     },
   },
 });
 
-export const { signupUser, loginUser } = usersSlice.actions;
+export const {
+  signupUser,
+  loginUser,
+  addToCollection,
+  removeFromCollection,
+  logoutUser,
+  clearError,
+} = usersSlice.actions;
 
 export default usersSlice.reducer;

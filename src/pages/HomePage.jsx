@@ -3,32 +3,25 @@ import { getPhotos, getStickers } from "../api/mediaApi";
 import Navbar from "../components/Navbar";
 import ResultGrid from "../components/ResultGrid";
 import Tabs from "../components/Tabs";
+import { Save } from "lucide-react";
+import SavedPage from "./SavedPage";
 
 export default function HomePage() {
   const [activePage, setActivePage] = useState("home");
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100">
       <Navbar activePage={activePage} setActivePage={setActivePage} />
-
-        {activePage === "home" && <Tabs />}
-
-      {/* <button
-        onClick={async () => {
-          const result = await getPhotos("cat");
-          console.log(result);
-        }}
-      >
-        Get photos
-      </button>
-
-      <button
-        onClick={async () => {
-          const result = await getStickers("modi");
-          console.log(result);
-        }}
-      >
-        Get Stickers
-      </button> */}
+      {activePage === "home" && (
+        <section>
+          <Tabs />
+          <ResultGrid />
+        </section>
+      )}
+      {activePage === "saved" && (
+        <section>
+          <SavedPage />
+        </section>
+      )}
     </div>
   );
 }

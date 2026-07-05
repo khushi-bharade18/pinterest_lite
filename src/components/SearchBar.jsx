@@ -1,5 +1,5 @@
 import { Search, X } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setQuery } from "../features/searchSlice";
 
@@ -7,13 +7,16 @@ export default function SearchBar() {
   const query = useSelector((store) => store.search.query);
   const dispatch = useDispatch();
 
+  const [inputValue, setInputValue] = useState("");
+
   function handelChange(e) {
-    dispatch(setQuery(e.target.value));
+    setInputValue(e.target.value);
   }
 
   function handelSubmit(e) {
     e.preventDefault();
-    dispatch(setQuery(""));
+    dispatch(setQuery(inputValue));
+    setInputValue("");
   }
   return (
     <div className="relative flex-1">
@@ -23,13 +26,16 @@ export default function SearchBar() {
           <input
             type="text"
             placeholder="Search pins, ideas, boards..."
-            value={query}
+            value={inputValue}
             onChange={(e) => handelChange(e)}
             className="bg-transparent outline-none text-sm text-gray-800 w-full placeholder-gray-400"
           />
           {query && (
             <button
-              onClick={() => dispatch(setQuery(""))}
+              onClick={() => {
+                setInputValue("");
+                dispatch(setQuery(""));
+              }}
               className="text-gray-400 hover:text-gray-800 transition-colors"
             >
               <X size={14} />
