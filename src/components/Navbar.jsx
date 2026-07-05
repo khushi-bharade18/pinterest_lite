@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 export default function Navbar({ activePage, setActivePage }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const {currUser} = useSelector((state) => state.users);
+  const { currUser } = useSelector((state) => state.users);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
@@ -23,7 +23,7 @@ export default function Navbar({ activePage, setActivePage }) {
               />
             </div>
 
-           <span className="flex items-center text-red-500 font-bold text-base sm:text-lg tracking-tight">
+            <span className="flex items-center text-red-500 font-bold text-base sm:text-lg tracking-tight">
               Pinterest
               <span className="text-gray-400 font-medium text-sm ml-1">
                 lite
@@ -135,9 +135,11 @@ export default function Navbar({ activePage, setActivePage }) {
 
               <div>
                 <p className="text-sm font-semibold text-gray-800">
-                  Khushi Bharade
+                  {currUser ? currUser.name : "Guest User"}
                 </p>
-                <p className="text-xs text-gray-500">khushi@email.com</p>
+                <p className="text-xs text-gray-500">
+                  {currUser ? currUser.email : "guest@email.com"}
+                </p>
               </div>
             </div>
           </div>

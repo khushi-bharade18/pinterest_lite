@@ -2,6 +2,7 @@ import { Bookmark } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addToCollection } from "../features/usersSlice";
+import toast from "react-hot-toast";
 
 export default function ResultCard({ id, thumbnail, title, type, url }) {
   const { currUser } = useSelector((state) => state.users);
@@ -13,6 +14,14 @@ export default function ResultCard({ id, thumbnail, title, type, url }) {
       alert("Please log in to save items.");
       return;
     }
+    const saved = currUser.collection.some((data) => data.id === id);
+
+    if (saved) {
+      toast.error("Already Saved");
+      return;
+    }
+
+    toast.success("Saved");
     dispatch(addToCollection({ id, thumbnail, title, type, url }));
   }
   return (
@@ -42,10 +51,9 @@ export default function ResultCard({ id, thumbnail, title, type, url }) {
       {/* Content */}
       <div className="p-2 sm:p-2.5">
         {/* Title */}
-          <h3 className="font-semibold text-gray-800 text-sm leading-5 sm:leading-6 line-clamp-2 cursor-default">
-            {title}
-          </h3>
-      
+        <h3 className="font-semibold text-gray-800 text-sm leading-5 sm:leading-6 line-clamp-2 cursor-default">
+          {title}
+        </h3>
       </div>
     </div>
   );
