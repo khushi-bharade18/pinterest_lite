@@ -4,6 +4,7 @@ import { Eye, EyeOff, Mail } from "lucide-react";
 export default function LoginForm({
   handleLogin,
   form,
+  setForm,
   showPassword,
   setShowPassword,
   loading,

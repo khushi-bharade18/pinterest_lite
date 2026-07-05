@@ -89,7 +89,7 @@ export default function SignupForm({
           {showCnfmPassword ? <Eye size={18} /> : <EyeOff size={18} />}
         </button>
       </div>
-
+      {error && <p className="text-red-500 text-sm">{error}</p>}
       <button
         type="submit"
         disabled={loading}

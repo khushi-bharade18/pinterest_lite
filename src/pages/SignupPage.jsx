@@ -38,9 +38,12 @@ export default function ResultGrid() {
     e.preventDefault();
     if (user.password !== cnfm_password) {
       setError("Please match the Password !");
+      console.log("wrong password")
+      return;
     }
 
     try {
+      setError("")
       setLoading(true);
       setShowPassword(false);
       setShowCnfmPassword(false);
@@ -50,7 +53,8 @@ export default function ResultGrid() {
         setLoading(false);
         navigate("/login");
       }, 1000);
-    } catch (err) {
+    } catch (error) {
+      console.log(error.message)
       setLoading(false);
       setError("User already exists");
     }

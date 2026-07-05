@@ -22,6 +22,7 @@ export default function Login() {
     setError("");
 
     try {
+      setError("");
       setLoading(true);
       setShowPassword(false);
       dispatch(loginUser(form));
@@ -53,6 +54,7 @@ export default function Login() {
         <LoginForm
           handleLogin={handleLogin}
           form={form}
+          setForm={setForm}
           showPassword={showPassword}
           setShowPassword={setShowPassword}
           loading={loading}

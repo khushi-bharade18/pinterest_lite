@@ -5,7 +5,7 @@ const getExistUser = () => {
   try {
     return existUser ? JSON.parse(existUser) : [];
   } catch (error) {
-    return error;
+    return error.message;
   }
 };
 
@@ -30,13 +30,12 @@ const usersSlice = createSlice({
     },
     loginUser: (state, action) => {
       const user = action.payload;
-
       const exist = state.usersArr.find(
         (item) => item.email === user.email && item.password === user.password,
       );
 
       if (!exist) {
-        throw new Error("UserNot Found");
+        throw new Error("User Not Found");
       }
 
       state.currUser = exist;
