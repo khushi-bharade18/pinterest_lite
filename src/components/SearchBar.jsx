@@ -17,6 +17,7 @@ export default function SearchBar() {
     e.preventDefault();
     dispatch(setQuery(inputValue));
     setInputValue("");
+   document.activeElement.blur();
   }
   return (
     <div className="relative flex-1">

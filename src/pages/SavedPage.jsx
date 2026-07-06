@@ -16,7 +16,7 @@ export default function SavedPage() {
   }
 
   return (
-    <div className="w-full px-4 pt-32 md:pt-24 pb-8">
+    <div className="w-full px-4 pt-20 md:pt-24 pb-8">
       <div className="mx-auto">
         {savedItems.length === 0 ? (
           <div className="flex flex-col justify-center items-center py-24">

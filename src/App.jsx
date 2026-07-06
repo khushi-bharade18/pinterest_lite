@@ -1,8 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router";
+import { Toaster } from "react-hot-toast";
 import Login from "./pages/LoginPage";
 import Signup from "./pages/SignupPage";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import HomeLayout from "./pages/HomeLayout";
 import HomePage from "./pages/HomePage";
-import { Toaster } from "react-hot-toast";
+import SavedPage from "./pages/SavedPage";
+import UserInfoPage from "./pages/UserInfoPage";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -23,7 +28,15 @@ export default function App() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/home" element={<HomePage />} />
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/home" element={<HomeLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="saved" element={<SavedPage />} />
+            <Route path="profile" element={<UserInfoPage />} />
+          </Route>
+        </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

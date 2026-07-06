@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SignupForm from "../components/SignupForm";
 import { useDispatch, useSelector } from "react-redux";
-import { signupUser } from "../features/usersSlice";
+import { clearError, setError, signupUser } from "../features/usersSlice";
 import { useNavigate } from "react-router";
 
 export default function ResultGrid() {
@@ -23,8 +23,9 @@ export default function ResultGrid() {
   const [cnfm_password, setCnfm_password] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showCnfmPassword, setShowCnfmPassword] = useState(false);
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { error } = useSelector((state) => state.users);
 
   function handelChange(e) {
     const { name, value } = e.target;
@@ -37,13 +38,13 @@ export default function ResultGrid() {
   function handelSubmit(e) {
     e.preventDefault();
     if (user.password !== cnfm_password) {
-      setError("Please match the Password !");
+      dispatch(setError("Please match the Password !"));
       console.log("wrong password")
       return;
     }
 
     try {
-      setError("")
+      dispatch(clearError());
       setLoading(true);
       setShowPassword(false);
       setShowCnfmPassword(false);
@@ -56,7 +57,7 @@ export default function ResultGrid() {
     } catch (error) {
       console.log(error.message)
       setLoading(false);
-      setError("User already exists");
+      dispatch(setError("Something went wrong !"));
     }
 
     setUser({

@@ -52,6 +52,7 @@ const usersSlice = createSlice({
     },
 
     loginUser: (state, action) => {
+      state.currUser = null;
       const { email, password } = action.payload;
 
       const exist = state.usersArr.find(
@@ -116,9 +117,33 @@ const usersSlice = createSlice({
       localStorage.setItem("currUser", JSON.stringify(state.currUser));
     },
 
+    updateUser: (state, action) => {
+      const updatedUser = action.payload;
+
+      const index = state.usersArr.findIndex(
+        (user) => user.id === state.currUser.id,
+      );
+
+      if (index !== -1) {
+        state.usersArr[index] = {
+          ...state.usersArr[index],
+          ...updatedUser,
+        };
+
+        state.currUser = state.usersArr[index];
+
+        localStorage.setItem("users", JSON.stringify(state.usersArr));
+        localStorage.setItem("currUser", JSON.stringify(state.currUser));
+      }
+    },
+
     logoutUser: (state) => {
       state.currUser = null;
       localStorage.removeItem("currUser");
+    },
+
+    setError: (state, action) => {
+      state.error = action.payload;
     },
 
     clearError: (state) => {
@@ -132,7 +157,9 @@ export const {
   loginUser,
   addToCollection,
   removeFromCollection,
+  updateUser,
   logoutUser,
+  setError,
   clearError,
 } = usersSlice.actions;
 

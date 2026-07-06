@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { loginUser } from "../features/usersSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { clearError, loginUser, setError } from "../features/usersSlice";
 import { useNavigate } from "react-router";
 import LoginForm from "../components/LoginForm";
 
@@ -14,15 +14,16 @@ export default function Login() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { error } = useSelector((state) => state.users);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    setError("");
+    dispatch(clearError());
 
     try {
-      setError("");
+      dispatch(clearError());
       setLoading(true);
       setShowPassword(false);
       dispatch(loginUser(form));
@@ -33,7 +34,7 @@ export default function Login() {
       }, 1000);
     } catch (err) {
       setLoading(false);
-      setError("Invalid email or password");
+      dispatch(setError("Invalid email or password"));
     }
     setForm({
       email: "",
