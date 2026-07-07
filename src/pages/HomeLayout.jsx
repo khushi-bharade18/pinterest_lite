@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Header/Navbar";
+import Footer from "../components/Footer/Footer";
 import { useState } from "react";
 
 export default function HomeLayout() {
@@ -11,6 +12,8 @@ export default function HomeLayout() {
       <main>
         <Outlet />
       </main>
+
+      <Footer />
     </>
   );
 }

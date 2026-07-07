@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import ResultGrid from "../components/Result/ResultGrid";
-import SearchTabs from "../components/SearchTabs";
+import SearchTabs from "../components/Header/SearchTabs";
 import HomeLanding from "../components/Hero_section/HomeLanding";
 
 export default function HomePage() {

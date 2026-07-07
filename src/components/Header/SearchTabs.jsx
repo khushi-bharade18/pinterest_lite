@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "./SearchBar";
 import TabButton from "./TabButton";
-import { setActiveTab } from "../features/searchSlice";
+import { setActiveTab } from "../../features/searchSlice";
 
 export default function SearchTabs() {
   const dispatch = useDispatch();

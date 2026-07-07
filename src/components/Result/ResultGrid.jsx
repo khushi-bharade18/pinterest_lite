@@ -38,10 +38,9 @@ export default function ResultGrid() {
     <div className="w-full px-4 py-6">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
         {results.map((item) => (
-          <ResultCard
-            key={item.id}
-            {...item}
-          />
+          <div key={item.id} className="animate-[fadeUp_.6s_ease]">
+            <ResultCard {...item} />
+          </div>
         ))}
       </div>
     </div>

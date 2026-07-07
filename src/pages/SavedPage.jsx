@@ -2,9 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import SavedCard from "../components/Saved/SavedCard";
 import { removeFromCollection } from "../features/usersSlice";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 export default function SavedPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { currUser } = useSelector((state) => state.users);
 
@@ -97,7 +99,9 @@ export default function SavedPage() {
               Pinterest collection. Everything you save will appear here.
             </p>
 
-            <button className="mt-8 rounded-full bg-red-500 hover:bg-red-600 transition px-8 py-3 text-white font-semibold shadow-lg hover:scale-105">
+            <button
+            onClick={() => navigate("/home")}
+            className="mt-8 rounded-full bg-red-500 hover:bg-red-600 transition px-8 py-3 text-white font-semibold shadow-lg hover:scale-105 cursor-pointer">
               Start Exploring
             </button>
           </div>

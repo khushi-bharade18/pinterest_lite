@@ -1,7 +1,7 @@
 import { Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setQuery } from "../features/searchSlice";
+import { setQuery } from "../../features/searchSlice";
 
 export default function SearchBar() {
   const query = useSelector((store) => store.search.query);
