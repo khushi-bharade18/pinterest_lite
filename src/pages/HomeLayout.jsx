@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import Navbar from "../components/Header/Navbar";
-import Footer from "../components/Footer/Footer";
+import Footer from "../components/footer/Footer";
 import { useState } from "react";
 
 export default function HomeLayout() {
