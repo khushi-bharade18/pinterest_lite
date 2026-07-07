@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import ResultCard from "./ResultCard";
 import { useDispatch, useSelector } from "react-redux";
-import { getPhotos, getStickers } from "../api/mediaApi";
-import { setResults, setError, setLoading } from "../features/searchSlice";
+import { getPhotos, getStickers } from "../../api/mediaApi";
+import { setResults, setError, setLoading } from "../../features/searchSlice";
 
 export default function ResultGrid() {
   const dispatch = useDispatch();

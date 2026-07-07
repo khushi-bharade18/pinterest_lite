@@ -8,7 +8,7 @@ import LogoutModal from "./LogoutModal";
 
 import { useDispatch } from "react-redux";
 
-import { logoutUser } from "../features/usersSlice";
+import { logoutUser } from "../../features/usersSlice";
 
 import { useNavigate } from "react-router";
 

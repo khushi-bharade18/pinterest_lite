@@ -63,7 +63,7 @@ export default function Navbar({ activePage, setActivePage }) {
               </button>
             </Link>
             {/* User Info */}
-            <div className="text-right leading-tight hidden lg:flex flex-col">
+            <div className="text-right leading-tight hidden md:flex flex-col">
               <span className="text-sm font-semibold text-gray-800">
                 {currUser ? currUser.name : "Guest User"}
               </span>

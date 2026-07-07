@@ -1,7 +1,7 @@
 import { Bookmark } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { addToCollection } from "../features/usersSlice";
+import { addToCollection } from "../../features/usersSlice";
 import toast from "react-hot-toast";
 
 export default function ResultCard({ id, thumbnail, title, type, url }) {

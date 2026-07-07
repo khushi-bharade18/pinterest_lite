@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import SavedCard from "../components/SavedCard";
+import SavedCard from "../components/Saved/SavedCard";
 import { removeFromCollection } from "../features/usersSlice";
 import toast from "react-hot-toast";
 
@@ -12,7 +12,7 @@ export default function SavedPage() {
 
   function handleRemove(id) {
     dispatch(removeFromCollection(id));
-     toast.success("Removed");
+    toast.success("Removed");
   }
 
   return (
@@ -31,7 +31,11 @@ export default function SavedPage() {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
             {savedItems.map((item) => (
-              <SavedCard key={item.id} {...item} onRemove={() => handleRemove(item.id)} />
+              <SavedCard
+                key={item.id}
+                {...item}
+                onRemove={() => handleRemove(item.id)}
+              />
             ))}
           </div>
         )}

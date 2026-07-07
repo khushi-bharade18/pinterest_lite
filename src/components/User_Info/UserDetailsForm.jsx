@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../features/usersSlice";
+import { updateUser } from "../../features/usersSlice";
 import toast from "react-hot-toast";
 import ActionButtons from "./ActionButtons";
+
 export default function UserDetailsForm() {
   const dispatch = useDispatch();
   const { currUser } = useSelector((state) => state.users);
