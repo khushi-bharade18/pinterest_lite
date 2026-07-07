@@ -17,17 +17,14 @@ const searchSlice = createSlice({
     setActiveTab: (state, action) => {
       state.activeTab = action.payload;
     },
-    setLoading: (state) => {
-      state.loading = true;
-      state.error = null;
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
     setError: (state, action) => {
       state.error = action.payload;
-      state.loading = false;
     },
     setResults: (state, action) => {
       state.results = action.payload;
-      state.loading = false;
     },
   },
 });

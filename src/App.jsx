@@ -32,6 +32,7 @@ export default function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<HomeLayout />}>
             <Route index element={<HomePage />} />
+            <Route path="search/:query" element={<HomePage />} />
             <Route path="saved" element={<SavedPage />} />
             <Route path="profile" element={<UserInfoPage />} />
           </Route>

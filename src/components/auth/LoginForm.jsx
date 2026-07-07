@@ -217,67 +217,20 @@ export default function LoginForm({
       <button
         type="submit"
         disabled={loading}
-        className={`
-          relative
-
-          w-full
-
-          overflow-hidden
-
-          rounded-2xl
-
-          py-4
-
-          font-semibold
-
-          text-white
-
-          transition-all
-
-          duration-300
-
-          ${
-            loading
-              ? "bg-gray-400 cursor-not-allowed"
-              : `
-              bg-gradient-to-r
-              from-red-500
-              via-red-600
-              to-pink-600
-
-              hover:scale-[1.02]
-
-              hover:shadow-2xl
-
-              active:scale-95
-              `
-          }
-        `}
+        className={`relative w-full  overflow-hidden rounded-2xl py-4 font-semibold  text-white transition-all duration-3   
+            ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : ` bg-gradient-to-r from-red-500 via-red-600 to-pink-600 hover:scale-[1.02] hover:shadow-2xl active:scale-95`
+            }
+          `}
       >
         <span className="relative z-10">
           {loading ? "Logging in..." : "Login"}
         </span>
 
         {!loading && (
-          <div
-            className="
-            absolute
-
-            inset-0
-
-            -translate-x-full
-
-            bg-white/20
-
-            skew-x-12
-
-            hover:translate-x-[250%]
-
-            transition-all
-
-            duration-1000
-            "
-          />
+          <div className="absolute inset-0 -translate-x-full bg-white/20 skew-x-12 hover:translate-x-[250%] transition-all duration-1000  " />
         )}
       </button>
     </form>

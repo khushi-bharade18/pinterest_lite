@@ -3,6 +3,9 @@ import ResultCard from "./ResultCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getPhotos, getStickers } from "../../api/mediaApi";
 import { setResults, setError, setLoading } from "../../features/searchSlice";
+import ErrorState from "./ErrorState";
+import EmptyResult from "./EmptyResult";
+import SkeletonGrid from "./SkeletonGrid";
 
 export default function ResultGrid() {
   const dispatch = useDispatch();
@@ -13,6 +16,7 @@ export default function ResultGrid() {
   async function fetchResults() {
     try {
       dispatch(setLoading(true));
+      dispatch(setError(null));
       let data;
       if (activeTab === "photos") {
         data = await getPhotos(query);
@@ -22,6 +26,7 @@ export default function ResultGrid() {
       dispatch(setResults(data));
     } catch (err) {
       dispatch(setError(err.message));
+      dispatch(setResults([]));
     } finally {
       dispatch(setLoading(false));
     }
@@ -30,9 +35,20 @@ export default function ResultGrid() {
   useEffect(() => {
     if (query) {
       fetchResults();
-      console.log(results);
     }
   }, [query, activeTab, dispatch]);
+
+  if (loading) {
+    return <SkeletonGrid />;
+  }
+
+  if (error) {
+    return <ErrorState error={error} retry={fetchResults} />;
+  }
+
+  if (!loading && results.length === 0) {
+    return <EmptyResult query={query} />;
+  }
 
   return (
     <div className="w-full px-4 py-6">
