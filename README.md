@@ -3,7 +3,7 @@
 A modern Pinterest-inspired web application built with **React**, **Redux Toolkit**, and **Tailwind CSS**. Users can search high-quality photos and stickers, save their favorite items, manage their profile, and enjoy a responsive user experience across all devices.
 
 ---
-
+## Live Demo: [Open Website](https://pinterest-lite-zeta.vercel.app) 
 ## Features
 
 ### Authentication
